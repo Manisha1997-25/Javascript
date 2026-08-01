@@ -1,0 +1,75 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>String Operations</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
+</head>
+
+<body>
+    <h1 class="text-primary p-4 text-center">String Operations in Javascript</h1>
+
+    <div class="container w-50">
+        <div class="mb-3">
+            <label for="inputPara" class="form-label">Example textarea</label>
+            <textarea class="form-control" id="inputPara" rows="3"></textarea>
+        </div>
+        <div class="container bg-secondary" style="height:100px" id="result">
+            Result will show here
+
+        </div>
+        <div class="container">
+            <div class="row p-4">
+                <div class="col">
+                    <button class="btn btn-primary" onclick="convertToUpperCase()">Convert To Upper Case</button>
+                </div>
+                <div class="col">
+                    <button class="btn btn-primary" onclick="convertToLowerCase()">Convert To Lower Case</button>
+                </div>
+                <div class="col">
+                    <button class="btn btn-primary" onclick="camelCase()">Convert To Camel Case</button>
+                </div>
+                <div class="col">
+                    <button class="btn btn-primary" onclick="extractFirstWord()">Extract First Word</button>
+                </div>
+            </div>
+            <div class="row p-4">
+                <div class="col">
+                    <button class="btn btn-primary" onclick="countNoOfWords()">Count Number of Words</button>
+                </div>
+                <div class="col">
+                    <button class="btn btn-primary" onclick="countVowels()">Count Vowels</button>
+                </div>
+                <div class="col">
+                    <button class="btn btn-primary" onclick="countConsonents()">Count consonents</button>
+                </div>
+                <div class="col ">
+                    <button class="btn btn-primary" onclick="extraSpecialCharacters()">Extract Special Characters</button>
+                </div>
+            </div>
+            <div class="row p-4">
+                <div class="col">
+                    <button class="btn btn-primary" onclick="checkPalindrome()">Check Palindrom</button>
+                </div>
+                <div class="col">
+                    <button class="btn btn-primary" onclick="countSpace()">Count Spaces</button>
+                </div>
+                <div class="col">
+                    <button class="btn btn-primary" onclick="replaceSpaces()">Replace all Space with Hypens</button>
+                </div>
+                <div class="col ">
+                    <button class="btn btn-primary" onclick="sortWordsAlpha()">Sort the Word</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="script.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI"
+        crossorigin="anonymous"></script>
+</body>
+
+</html>

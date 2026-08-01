@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        // let a=Number(prompt("Enter a Number"))
+        // if (a == 0) {
+        //     console.log("Number is zero");
+        // }
+        // else if (a < 0) {
+        //     console.log("Number is negative");
+        // }
+        // else {
+        //     console.log("Number is Positive");
+        // }
+
+        // let num=Number(prompt("Enter a number"))
+
+        // for(let i=1; i<=10; i++ ){
+        //     console.log(num*i)
+        // }
+
+        let n = Number(prompt("Enter a number : "));
+        let sum = 0;
+        do {
+            let digit = n % 10;
+            sum = sum + digit;
+            n = (n / 10);
+        } while (n > 0);
+
+        console.log("Sum of Digits = " + sum)
+    </script>
+</body>
+
+</html>

@@ -1,11 +1,14 @@
 //Negative Number Checks
 let a=-3;
 
-if(a<0){
+if(a==0){
+    console.log("Number is zero");
+}
+else if(a<0){
     console.log("Number is negative");
 }
 else{
-    console.log("Number is Positive")
+    console.log("Number is Positive");
 }
 
 //Print Even Numbers
