@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DOM Tasks</title>
+</head>
+
+<body>
+    <!-- // Heading -->
+    <h1 id="headigOne">Welcome Students</h1>
+    <button id="btnToChange">click me</button>
+    <script>
+        document.querySelector("#btnToChange").addEventListener("click", () => {
+            document.querySelector("#headigOne").textContent = "Welcom To Javascript DOM"
+        })
+    </script>
+    <hr>
+
+    <!-- // Text color Change -->
+    <p id="para">Lorem ipsum dolor sit amet consectetur adipisicing elit. Animi sequi soluta quod quisquam debitis,
+        incidunt explicabo quaerat pariatur expedita tempore! Dolores, tempora, libero illum sed aliquam soluta repellat
+        quibusdam eius accusantium non dicta voluptate assumenda eveniet eum, earum inventore atque delectus rerum
+        maiores rem voluptatibus eaque at cum! Architecto, distinctio.</p>
+    <button id="redBtn">Red</button>
+    <button id="greenBtn">Green</button>
+    <button id="blueBtn">Blue</button>
+    <script>
+        const paraElmt = document.querySelector("#para")
+        document.querySelector("#redBtn").addEventListener("click", () => {
+            paraElmt.style.color = "Red"
+        })
+        document.querySelector("#greenBtn").addEventListener("click", () => {
+            paraElmt.style.color = "Green"
+        })
+        document.querySelector("#blueBtn").addEventListener("click", () => {
+            paraElmt.style.color = "Blue"
+        })
+    </script>
+    <hr>
+
+    <!-- // Show And Hide content using single Button -->
+    <p id="paraOne">Lorem ipsum dolor, sit amet consectetur adipisicing elit. Consequatur, impedit!</p>
+    <button id="showHide" onclick="showAndHide()">Show/Hide</button>
+    <script>
+        const paraOneElmt = document.querySelector("#paraOne")
+        function showAndHide() {
+
+            if (paraOneElmt.style.display === "none") {
+                paraOneElmt.style.display = "block"
+            } else {
+                paraOneElmt.style.display = "none"
+            }
+        }
+    </script>
+    <hr>
+
+    <!-- // Show And Hide content using separate Button -->
+    <p id="paraOnee">Lorem ipsum dolor, sit amet consectetur adipisicing elit. Consequatur, impedit!</p>
+    <button id="show" onclick="show()">Show</button>
+    <button id="Hide" onclick="Hide()">Hide</button>
+    <script>
+        const paraOneeElmt = document.querySelector("#paraOnee")
+        function show() {
+            paraOneeElmt.style.display = "block"
+        }
+        function Hide() {
+            paraOneeElmt.style.display = "none"
+        }
+    </script>
+    <hr>
+
+    <!-- // Counter Button -->
+    <p>count: <span id="count"></span></p>
+    <button id="increment">+</button>
+    <button id="resetBtn">Reset</button>
+    <button id="decrement">-</button>
+    <script>
+        let count = 0
+        const countElmt = document.querySelector("#count")
+        const incrementElmt = document.querySelector("#increment")
+        const resetBtnElmt = document.querySelector("#resetBtn")
+        const decrementElmt = document.querySelector("#decrement")
+        countElmt.textContent = count
+        incrementElmt.addEventListener("click", () => {
+            count++
+            countElmt.textContent = count
+        })
+        decrementElmt.addEventListener("click", () => {
+            if (count > 0)
+                count--
+            countElmt.textContent = count
+        })
+        resetBtnElmt.addEventListener("click", () => {
+            count = 0
+            countElmt.textContent = count
+        })
+    </script>
+    <hr>
+
+    <!-- //Background Change Button Color -->
+    <button id="redBTN">RED</button>
+    <button id="greenBTN">GREEN</button>
+    <button id="blueBTN">BLUE</button>
+    <button id="yellowBTN">YELLOW</button>
+    <button id="resetBTN">RESET(defaultClr)</button>
+
+    <script>
+        document.querySelector("#redBTN").addEventListener("click", () => {
+            document.body.style.backgroundColor = "Red"
+        })
+        document.querySelector("#greenBTN").addEventListener("click", () => {
+            document.body.style.backgroundColor = "Green"
+        })
+        document.querySelector("#blueBTN").addEventListener("click", () => {
+            document.body.style.backgroundColor = "Blue"
+        })
+        document.querySelector("#yellowBTN").addEventListener("click", () => {
+            document.body.style.backgroundColor = "Yellow"
+        })
+        document.querySelector("#resetBTN").addEventListener("click", () => {
+            document.body.style.backgroundColor = ""
+        })
+    </script>
+    <hr>
+
+    <!-- // Greet msg Button with Students Name -->
+    <label for="">Enter Your Name : </label>
+    <input type="text" id="inputName">
+    <button id="greetBtn">Greet Me</button>
+    <p id="greeting">Hello Students</p>
+    <script>
+        const inputNameElmt = document.querySelector("#inputName")
+        const greetBtnElmt = document.querySelector("#greetBtn")
+        const greetingElmt = document.querySelector("#greeting")
+
+        greetBtnElmt.addEventListener("click", () => {
+            const name = inputNameElmt.value
+
+            greetingElmt.textContent = `Hello, ${name}!`
+        })
+
+
+    </script>
+
+    <hr>
+
+    <!-- // TextArea with maxlength -->
+    <label for=""></label>
+    <textarea name="text" id="textInput" maxlength="100"></textarea>
+    <p>Characters : <span id="charCount">0</span>/100</p>
+    <p id="msg"></p>
+    <script>
+        const textInputElmt = document.querySelector("#textInput")
+        const charCountElmt = document.querySelector("#charCount")
+        const msgElmt = document.querySelector("#msg")
+
+        textInputElmt.addEventListener("input", () => {
+            const count = textInputElmt.value.length
+            charCountElmt.textContent = count
+
+            if (count === 100) {
+                msgElmt.textContent = "Limit has ended"
+            } else {
+                msgElmt.textContent = ""
+            }
+        })
+    </script>
+    <hr>
+
+    <!-- //add and create Shopping List using -->
+    <label for="">Enter item</label>
+    <input type="text" id="typeInput">
+    <button id="addBtn">Add</button>
+    <h3>Shopping List</h3>
+    <ul id="shoppingList"></ul>
+    <script>
+        const typeInputElmt = document.querySelector("#typeInput")
+        const addBtnElmt = document.querySelector("#addBtn")
+        const shoppingListElmt = document.querySelector("#shoppingList")
+        addBtnElmt.addEventListener("click", () => {
+            const item = typeInputElmt.value
+            if (item !== "") {
+                const liItem = document.createElement("li")
+                liItem.textContent = item
+                shoppingListElmt.appendChild(liItem)
+                typeInputElmt.value = ""
+            }
+        })
+
+    </script>
+    <hr>
+
+    <!-- // To do list for task -->
+    <label for="">Enter Task</label>
+    <input type="text" id="taskInput">
+    <button id="addTaskBtn">Add Task</button>
+    <h3>Tasks</h3>
+    <ul id="taskList"></ul>
+    <script>
+        const taskInputElmt = document.querySelector("#taskInput")
+        const addTaskBtnElmt = document.querySelector("#addTaskBtn")
+        const taskListElmt = document.querySelector("#taskList")
+
+        addTaskBtnElmt.addEventListener("click", () => {
+            const task = taskInputElmt.value
+            if (task !== "") {
+                const liTask = document.createElement("li")
+                liTask.textContent = task
+                const dltBtnElmt = document.createElement("button")
+                dltBtnElmt.textContent = "Delete"
+                liTask.appendChild(dltBtnElmt)
+                taskListElmt.appendChild(liTask)
+                taskInputElmt.value = ""
+
+
+                dltBtnElmt.addEventListener("click", () => {
+                    liTask.remove()
+                })
+
+            }
+        })
+    </script>
+
+    <hr>
+
+    <!-- Form Validation -->
+    <form id="registerForm">
+        <div>
+            <label for="">Name</label>
+            <input type="text" id="nameInput">
+            <p id="nameError"></p>
+            
+        </div>
+        <div>
+            <label for="">Email</label>
+            <input type="email" id="emailInput">
+            <p id="emailError"></p>
+            
+        </div>
+        <div>
+            <label for="">Password</label>
+            <input type="password" id="passwordInput">
+            <p id="passwordError"></p>
+        </div>
+        
+        <button type="submit" id="registerBtn">Register</button>
+    </form>
+
+    <script>
+        const registerFormElmt = document.querySelector("#registerForm")
+        const nameInputElmt = document.querySelector("#nameInput")
+        const emailInputElmt = document.querySelector("#emailInput")
+        const passwordInputElmt = document.querySelector("#passwordInput")
+        const registerBtnElmt = document.querySelector("#registerBtn")
+        const nameErrorElmt = document.querySelector("#nameError")
+        const emailErrorElmt = document.querySelector("#emailError")
+        const passwordErrorElmt = document.querySelector("#passwordError")
+
+
+        registerFormElmt.addEventListener("submit", (event)=>{
+            event.preventDefault()
+
+            const name = nameInputElmt.value
+            if (name === ""){
+                nameErrorElmt.textContent = "Name cannot be empty"
+            }else{
+                nameErrorElmt.textContent = ""
+            }
+
+            const email = emailInputElmt.value
+            if (email === ""){
+                emailErrorElmt.textContent = "Email cannot be empty"
+            }else{
+                emailErrorElmt.textContent = ""
+            }
+
+            const password = passwordInputElmt.value
+            if (password === ""){
+                passwordErrorElmt.textContent = "Email cannot be empty"
+            }else{
+                passwordErrorElmt.textContent = ""
+            }
+        })
+    </script>
+</body>
+
+</html>
