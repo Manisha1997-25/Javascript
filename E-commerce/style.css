@@ -1,0 +1,75 @@
+.hero-section {
+    min-height: 90vh;
+    display: flex;
+    align-items: center;
+    padding: 60px 0;
+    background-color: #f8f9fa;
+}
+
+.hero-image-container {
+    position: relative;
+    display: inline-block;
+}
+
+.hero-image {
+    width: 100%;
+    max-width: 500px;
+    height: 500px;
+    object-fit: cover;
+    border-radius: 10px;
+}
+
+.offer-badge {
+    position: absolute;
+    top: 20px;
+    right: 10px;
+
+    width: 100px;
+    height: 100px;
+
+    border-radius: 50%;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    text-align: center;
+
+    background-color: #dc3545;
+    color: white;
+
+    font-size: 22px;
+    font-weight: bold;
+
+    transform: rotate(10deg);
+}
+
+.btn {
+    border-radius: 8px;
+    padding: 12px 25px;
+}
+
+
+/* Mobile */
+
+@media (max-width: 768px) {
+
+    .hero-section {
+        text-align: center;
+        padding: 40px 15px;
+    }
+
+    .hero-image {
+        height: 350px;
+    }
+
+    .display-3 {
+        font-size: 40px;
+    }
+
+    .offer-badge {
+        width: 80px;
+        height: 80px;
+        font-size: 18px;
+    }
+}
