@@ -1,0 +1,591 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Bootstrap demo</title>
+  <style>
+    .slider {
+      width: 600px;
+      height: 350px;
+      margin: 50px auto;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .slider img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .slider button {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      padding: 10px 15px;
+      border: none;
+      background: rgba(0, 0, 0, 0.5);
+      color: white;
+      font-size: 25px;
+      cursor: pointer;
+    }
+
+    #prevBtn {
+      left: 10px;
+    }
+
+    #nextBtn {
+      right: 10px;
+    }
+
+    /* light dark theme */
+    body {
+      background-color: white;
+      color: black;
+      transition: 0.3s;
+    }
+
+    button {
+      padding: 10px 20px;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+
+    /* Dark mode */
+    body.dark {
+      background-color: #121212;
+      color: white;
+    }
+
+    body.dark button {
+      background-color: white;
+      color: black;
+    }
+
+    /* for quize app */
+    .quiz-container {
+      width: 400px;
+      background-color: white;
+      padding: 30px;
+      border-radius: 10px;
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+    }
+
+    h1 {
+      text-align: center;
+    }
+
+    #question {
+      margin-bottom: 20px;
+    }
+
+    .option {
+      display: block;
+      width: 100%;
+      padding: 12px;
+      margin: 10px 0;
+      border: 1px solid #ccc;
+      background: white;
+      cursor: pointer;
+      border-radius: 5px;
+      text-align: left;
+    }
+
+    .option:hover {
+      background: #eee;
+    }
+
+    #btnNext {
+      width: 100%;
+      padding: 12px;
+      margin-top: 15px;
+      background: #af7e7e;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+
+    #score {
+      text-align: center;
+      font-size: 20px;
+      font-weight: bold;
+    }
+
+/* modal popup */
+   
+#openBtn {
+    padding: 12px 25px;
+    border: none;
+    background-color: #b02b2b;
+    color: white;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+/* Modal background */
+
+.modal {
+    display: none;
+
+    position: fixed;
+    top: 0;
+    left: 0;
+
+    width: 100%;
+    height: 100%;
+
+    background: rgba(0, 0, 0, 0.6);
+
+    justify-content: center;
+    align-items: center;
+}
+
+/* Modal box */
+
+.modal-content {
+    background: white;
+    width: 350px;
+    padding: 30px;
+    border-radius: 10px;
+    position: relative;
+
+    animation: popup 0.3s ease;
+}
+
+/* Close button */
+
+#closeBtn {
+    position: absolute;
+    right: 15px;
+    top: 10px;
+
+    font-size: 30px;
+    cursor: pointer;
+}
+
+#okBtn {
+    padding: 10px 25px;
+    border: none;
+    background-color: #b02b2b;
+    color: white;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+@keyframes popup {
+
+    from {
+        transform: scale(0.7);
+        opacity: 0;
+    }
+
+    to {
+        transform: scale(1);
+        opacity: 1;
+    }
+}
+  </style>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
+</head>
+
+<body>
+  <div class="todo-container">
+    <h1>My To-Do List</h1>
+
+    <div class="input-box">
+      <input type="text" id="taskInput" placeholder="Enter your task">
+      <button id="addBtn">Add</button>
+    </div>
+
+    <ul id="taskList"></ul>
+  </div>
+  <hr>
+  <!-- Form Validation -->
+  <div>
+    <h1>Form Validation</h1>
+  </div>
+  <form id="registerForm">
+    <div>
+      <label for="">Name</label>
+      <input type="text" id="nameInput">
+      <p id="nameError"></p>
+
+    </div>
+    <div>
+      <label for="">Email</label>
+      <input type="email" id="emailInput">
+      <p id="emailError"></p>
+
+    </div>
+    <div>
+      <label for="">Password</label>
+      <input type="password" id="passwordInput">
+      <p id="passwordError"></p>
+    </div>
+
+    <button type="submit" id="registerBtn">Register</button>
+  </form>
+
+  <script>
+    const registerFormElmt = document.querySelector("#registerForm")
+    const nameInputElmt = document.querySelector("#nameInput")
+    const emailInputElmt = document.querySelector("#emailInput")
+    const passwordInputElmt = document.querySelector("#passwordInput")
+    const registerBtnElmt = document.querySelector("#registerBtn")
+    const nameErrorElmt = document.querySelector("#nameError")
+    const emailErrorElmt = document.querySelector("#emailError")
+    const passwordErrorElmt = document.querySelector("#passwordError")
+
+
+    registerFormElmt.addEventListener("submit", (event) => {
+      event.preventDefault()
+
+      const name = nameInputElmt.value
+      if (name === "") {
+        nameErrorElmt.textContent = "Name cannot be empty"
+      } else {
+        nameErrorElmt.textContent = ""
+      }
+
+      const email = emailInputElmt.value
+      if (email === "") {
+        emailErrorElmt.textContent = "Email cannot be empty"
+      } else {
+        emailErrorElmt.textContent = ""
+      }
+
+      const password = passwordInputElmt.value
+      if (password === "") {
+        passwordErrorElmt.textContent = "Email cannot be empty"
+      } else {
+        passwordErrorElmt.textContent = ""
+      }
+    })
+  </script>
+  <hr>
+  <div class="slider">
+    <img id="sliderImage" src="images/image1.jpg" alt="Slider Image">
+
+    <button id="prevBtn">❮</button>
+    <button id="nextBtn">❯</button>
+  </div>
+  <script>
+    const images = [
+      "images/agra.jpg",
+      "images/udaipur.jpg",
+      "images/agraTour.jpg",
+      "images/kashmir.jpg",
+      "images/kashmirTour.jpg",
+      "images/kerala.jpg",
+      "images/keralaTour.jpg"
+    ];
+
+    let currentIndex = 0;
+
+    const sliderImage = document.getElementById("sliderImage");
+    const prevBtn = document.getElementById("prevBtn");
+    const nextBtn = document.getElementById("nextBtn");
+
+    function showImage() {
+      sliderImage.src = images[currentIndex];
+    }
+
+    nextBtn.addEventListener("click", () => {
+      currentIndex++;
+
+      if (currentIndex >= images.length) {
+        currentIndex = 0;
+      }
+
+      showImage();
+    });
+
+    prevBtn.addEventListener("click", () => {
+      currentIndex--;
+
+      if (currentIndex < 0) {
+        currentIndex = images.length - 1;
+      }
+
+      showImage();
+    });
+  </script>
+  <hr>
+  <div>
+    <h1 id="dateElmt">Digital Clock</h1>
+    <h2 id="timeElmt"><span id="hr"></span>:<span id="min"></span>:<span id="sec"></span></h2>
+  </div>
+
+  <script>
+    function showTime() {
+      const today = new Date()
+      const hour = today.getHours()
+      document.getElementById("hr").textContent = hour
+      const minute = today.getMinutes()
+      document.getElementById("min").textContent = minute
+      const second = today.getSeconds()
+      document.getElementById("sec").textContent = second
+    }
+
+    setInterval(showTime, 1000)
+  </script>
+
+  <hr>
+  <div class="container">
+    <h1>My Website</h1>
+    <p>Welcome to my website.</p>
+
+    <button id="themeBtn">🌙 Dark Mode</button>
+  </div>
+  <script>
+    const themeBtn = document.getElementById("themeBtn");
+
+    themeBtn.addEventListener("click", () => {
+      document.body.classList.toggle("dark");
+
+      if (document.body.classList.contains("dark")) {
+        themeBtn.textContent = "☀️ Light Mode";
+      } else {
+        themeBtn.textContent = "🌙 Dark Mode";
+      }
+    });
+  </script>
+
+  <hr>
+
+  <div class="quiz-container">
+
+    <h1>Mini Quiz App</h1>
+
+    <h2 id="question">Question goes here</h2>
+
+    <div id="options"></div>
+
+    <button id="btnNext">Next</button>
+
+    <p id="score"></p>
+
+  </div>
+
+  <script>
+    const questions = [
+      {
+        question: "Which language is used to create web pages?",
+        options: ["HTML", "Python", "Java", "SQL"],
+        answer: "HTML"
+      },
+
+      {
+        question: "Which language is used to style a webpage?",
+        options: ["HTML", "CSS", "JavaScript", "React"],
+        answer: "CSS"
+      },
+
+      {
+        question: "Which keyword declares a variable in JavaScript?",
+        options: ["var", "int", "string", "define"],
+        answer: "var"
+      },
+
+      {
+        question: "Which method adds an item to the end of an array?",
+        options: ["pop()", "push()", "shift()", "map()"],
+        answer: "push()"
+      },
+
+      {
+        question: "Which symbol is used for strict equality?",
+        options: ["=", "==", "===", "!="],
+        answer: "==="
+      }
+    ];
+
+    let currentQuestion = 0;
+    let score = 0;
+
+    const questionElement = document.getElementById("question");
+    const optionsElement = document.getElementById("options");
+    const btnNext = document.getElementById("btnNext");
+    const scoreElement = document.getElementById("score");
+
+    function showQuestion() {
+
+      const current = questions[currentQuestion];
+
+      questionElement.textContent = current.question;
+
+      optionsElement.innerHTML = "";
+
+      current.options.forEach(option => {
+
+        const button = document.createElement("button");
+
+        button.textContent = option;
+        button.classList.add("option");
+
+        button.addEventListener("click", () => {
+          checkAnswer(option);
+        });
+
+        optionsElement.appendChild(button);
+      });
+    }
+
+    function checkAnswer(selectedAnswer) {
+
+      const correctAnswer = questions[currentQuestion].answer;
+
+      if (selectedAnswer === correctAnswer) {
+        score++;
+      }
+
+      // Disable all options after selecting
+      const buttons = document.querySelectorAll(".option");
+
+      buttons.forEach(button => {
+        button.disabled = true;
+      });
+    }
+
+    btnNext.addEventListener("click", () => {
+
+      currentQuestion++;
+
+      if (currentQuestion < questions.length) {
+
+        showQuestion()
+
+      } else {
+
+        questionElement.textContent = "Quiz Completed!";
+
+        optionsElement.innerHTML = ""
+
+        btnNext.style.display = "none"
+
+        scoreElement.textContent =
+          `Your Score: ${score} / ${questions.length}`;
+      }
+    })
+
+    showQuestion()
+  </script>
+  <hr>
+  <!-- // Counter Button -->
+  <p>count: <span id="count"></span></p>
+  <button id="increment">+</button>
+  <button id="resetBtn">Reset</button>
+  <button id="decrement">-</button>
+  <script>
+    let count = 0
+    const countElmt = document.querySelector("#count")
+    const incrementElmt = document.querySelector("#increment")
+    const resetBtnElmt = document.querySelector("#resetBtn")
+    const decrementElmt = document.querySelector("#decrement")
+    countElmt.textContent = count
+    incrementElmt.addEventListener("click", () => {
+      count++
+      countElmt.textContent = count
+    })
+    decrementElmt.addEventListener("click", () => {
+      if (count > 0)
+        count--
+      countElmt.textContent = count
+    })
+    resetBtnElmt.addEventListener("click", () => {
+      count = 0
+      countElmt.textContent = count
+    })
+  </script>
+  <hr>
+  <button id="openBtn">Open Modal</button>
+
+  <div id="modal" class="modal">
+
+    <div class="modal-content">
+
+      <span id="closeBtn">&times;</span>
+
+      <h2>Hello!</h2>
+
+      <p>This is a simple modal popup.</p>
+
+      <button id="okBtn">OK</button>
+
+    </div>
+
+  </div>
+  <script>
+    const openBtn = document.getElementById("openBtn");
+    const closeBtn = document.getElementById("closeBtn");
+    const okBtn = document.getElementById("okBtn");
+    const modal = document.getElementById("modal");
+
+    // Open modal
+    openBtn.addEventListener("click", () => {
+      modal.style.display = "flex";
+    });
+
+    // Close modal
+    closeBtn.addEventListener("click", () => {
+      modal.style.display = "none";
+    });
+
+    // Close using OK button
+    okBtn.addEventListener("click", () => {
+      modal.style.display = "none";
+    });
+
+    // Close when clicking outside modal
+    modal.addEventListener("click", (event) => {
+
+      if (event.target === modal) {
+        modal.style.display = "none";
+      }
+
+    });
+  </script>
+  <hr>
+  <div class="container" style="background-color: rgb(163, 241, 215);">
+    <h1 class="heading text-center">Weather Application</h1>
+    <div class="container w-50">
+      <input type="text" id="cityName" class="form-control">
+      <button class="btn btn-success my-2" id="btnDisplay">Display Information</button>
+
+    </div>
+    <div class="container w-50" style="background-color: rgb(137, 213, 133);">
+      <div id="infoWeather">
+
+      </div>
+    </div>
+  </div>
+  <hr>
+
+  <div>
+    <h1>Password Strength Checker</h1>
+
+    <input type="password" id="password" placeholder="Enter Password">
+
+    <div id="strength"></div>
+    <ul>
+      <li id="length">At least 8 characters</li>
+      <li id="uppercase">One uppercase letter</li>
+      <li id="lowercase">One lowercase letter</li>
+      <li id="number">One number</li>
+      <li id="special">One special character</li>
+    </ul>
+
+  </div>
+
+  <script src="Assignments10.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI"
+    crossorigin="anonymous"></script>
+</body>
+
+</html>
